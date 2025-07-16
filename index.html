@@ -502,6 +502,38 @@
     box-shadow: 0 0 15px rgba(255, 65, 108, 0.7);
   }
 }
+.puzzle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  width: 300px;
+  height: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.puzzle-piece {
+  background-image: url('https://picsum.photos/id/1015/600/400'); /* Replace with real photo */
+  background-size: 300px 200px;
+  filter: blur(8px);
+  transition: filter 0.3s ease;
+  cursor: pointer;
+}
+
+.puzzle-piece.revealed {
+  filter: blur(0);
+  cursor: default;
+}
+
+.puzzle-message {
+  font-size: 1.8rem;
+  color: #ff4081;
+  font-family: 'Great Vibes', cursive;
+  text-align: center;
+  margin-top: 2rem;
+  animation: fadeIn 1.5s ease-in-out;
+}
 
 
   </style>
@@ -573,12 +605,29 @@
       </div>
     </div>
   </div>
+<!-- 📷 Live Camera Slide -->
+<div class="section">
+  <p style="font-size: 1.5rem;">📷 Click a Live Photo</p>
+  <video id="liveVideo" width="300" height="225" autoplay style="border:2px solid #ff80ab; border-radius:1rem;"></video>
+  <br>
+  <button onclick="capturePhoto()" class="animated-listen" style="margin-top:1rem;">📸 Capture</button>
+  <canvas id="snapshotCanvas" width="300" height="225" style="display:none; margin-top:1rem; border:2px dashed #ff80ab;"></canvas>
+</div>
+<!-- 📖 Flipbook Story Slide -->
+<div class="section">
+  <p style="font-size: 1.5rem;">📖 Our Little Love Story</p>
+  <div id="flipbookContainer" style="margin-top:1rem;">
+    <p id="storyPage" style="font-style: italic; font-size:1.2rem;">Once upon a time, two souls collided... 💫</p>
+    <button onclick="nextStoryPage()" style="margin-top:1rem; font-size:0.9rem;" class="animated-listen">➡️ Next Page</button>
+  </div>
+</div>
 
     <!-- 🔐 Vault Slide -->
     <div class="section" id="vaultSlide">
       <p style="font-size: 1.3rem;">🔒 Enter code to unlock secret memories:</p>
       <input type="password" id="vaultInput" maxlength="4" placeholder="****" style="padding:0.5rem; font-size:1.2rem;" />
-     <button onclick="checkCode()" class="animated-unlock">🔓 Unlock</button>
+     <button onclick="checkVaultCode()" class="animated-unlock">🔓 Unlock</button>
+
       <div id="vaultError" style="color:red; display:none;">Wrong code! Try again.</div>
       <div id="vaultGallery" style="display:none; margin-top:2rem;">
         <p>🎞️ Secret Memories</p>
@@ -593,6 +642,15 @@
       <button onclick="startVoice()" class="animated-listen">🎤 Start Listening</button>
       <p id="voiceResult" style="margin-top: 1rem; font-style:italic;"></p>
     </div>
+<!-- 🌟 Starlit Wishes Slide -->
+<div class="section">
+  <p style="font-size: 1.5rem;">🌟 Click a Star for a Wish</p>
+  <div style="display:flex; justify-content:center; gap:1rem; margin-top:1rem;">
+    <span onclick="revealWish(this)" style="font-size:2rem; cursor:pointer;">⭐</span>
+    <span onclick="revealWish(this)" style="font-size:2rem; cursor:pointer;">⭐</span>
+    <span onclick="revealWish(this)" style="font-size:2rem; cursor:pointer;">⭐</span>
+  </div>
+</div>
 
     <!-- 💘 Why I Love You Randomizer -->
     <div class="section">
@@ -600,6 +658,12 @@
       <button id="whyLoveBtn" style="margin-top: 1rem; font-size: 1rem; padding: 0.6rem 1rem; border-radius: 1rem; background: #ff80ab; color: white; font-family: 'Gloria Hallelujah', cursive; border: none; cursor: pointer;">💬 Tell Me❤️</button>
       <p id="reasonText" style="margin-top: 1rem; font-size: 1.2rem; color: #cc3366;"></p>
     </div>
+<!-- 🧩 Puzzle Piece Reveal -->
+<div class="section">
+  <p style="font-size: 1.5rem; margin-bottom: 1rem;">🧩 Puzzle Piece Reveal</p>
+  <div id="puzzleGrid" class="puzzle-grid"></div>
+  <p id="puzzleMessage" class="puzzle-message" style="display:none;">You complete me ❤️</p>
+</div>
 
     <!-- 💌 Final Slide -->
     <div class="section">
@@ -649,13 +713,18 @@
       document.getElementById("errorMsg").style.display = "block";
     }
   }
+function showSlide(index) {
+  current = index;
+  sections.forEach((s, i) => s.classList.toggle("active", i === index));
+  updateNavButtons();
+  sections[current].focus();
 
-  function showSlide(index) {
-    current = index;
-    sections.forEach((s, i) => s.classList.toggle("active", i === index));
-    updateNavButtons();
-    sections[current].focus();
+  // 🎊 Trigger final confetti on last slide
+  if (current === sections.length - 1) {
+    firework(); // Reuse your existing confetti function
   }
+}
+
 
   function nextSlide() {
     if (current < sections.length - 1) {
@@ -710,12 +779,15 @@
   }
 
   function firework() {
-    confetti({
-      particleCount: 200,
-      spread: 100,
-      origin: { y: 0.6 },
-    });
-  }
+  confetti({
+    particleCount: 300,
+    spread: 120,
+    startVelocity: 30,
+    origin: { y: 0.5 },
+    colors: ["#ff4b2b", "#ff80ab", "#ffd700", "#ffffff"]
+  });
+}
+
 
   function spawnEffect(type, char) {
     const el = document.createElement("div");
@@ -777,6 +849,65 @@
   function playBgMusic() {
     if (bgMusic.paused) bgMusic.play();
   }
+// Live Camera Logic
+const video = document.getElementById("liveVideo");
+const canvas = document.getElementById("snapshotCanvas");
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => video.srcObject = stream);
+}
+function capturePhoto() {
+  const ctx = canvas.getContext("2d");
+  canvas.style.display = "block";
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+}
+const storyPages = [
+  "Once upon a time, two souls collided... 💫",
+  "From laughter to tears, they shared everything 🥺",
+  "They became each other’s home 🏠💖",
+  "And now, they write their forever together ✍️❤️",
+  "The End? No... This is just the beginning. 🌌"
+];
+let storyIndex = 0;
+function nextStoryPage() {
+  storyIndex = (storyIndex + 1) % storyPages.length;
+  document.getElementById("storyPage").innerText = storyPages[storyIndex];
+}
+function revealWish(el) {
+  const wishes = [
+    "I wish to hold your hand forever 💕",
+    "I wish every day starts with your smile ☀️",
+    "I wish to grow old with you 🌸"
+  ];
+  el.textContent = wishes[Math.floor(Math.random() * wishes.length)];
+}
+function createPuzzleGrid() {
+  const grid = document.getElementById("puzzleGrid");
+  const total = 9;
+  let revealedCount = 0;
+
+  for (let i = 0; i < total; i++) {
+    const piece = document.createElement("div");
+    piece.className = "puzzle-piece";
+    const x = -(i % 3) * 100; // X offset
+    const y = -Math.floor(i / 3) * 66.67; // Y offset
+    piece.style.backgroundPosition = `${x}px ${y}px`;
+
+    piece.addEventListener("click", () => {
+      if (!piece.classList.contains("revealed")) {
+        piece.classList.add("revealed");
+        revealedCount++;
+        if (revealedCount === total) {
+          document.getElementById("puzzleMessage").style.display = "block";
+        }
+      }
+    });
+
+    grid.appendChild(piece);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", createPuzzleGrid);
 
   // Voice-to-text magic
   function startVoice() {
