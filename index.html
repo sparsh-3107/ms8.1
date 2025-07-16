@@ -535,6 +535,240 @@
   animation: fadeIn 1.5s ease-in-out;
 }
 
+.jar-container {
+  position: relative;
+  width: 300px;
+  margin: 2rem auto;
+}
+
+.jar-image {
+  width: 100%;
+  filter: drop-shadow(0 0 10px #ff80ab80);
+}
+
+.notes-container {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.note {
+  background: #fff0f5;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  animation: floatNote 3s ease-in-out infinite;
+  box-shadow: 0 0 6px #ff80ab80;
+  transition: transform 0.2s;
+}
+
+.note:hover {
+  transform: scale(1.2);
+}
+
+@keyframes floatNote {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.moment-popup {
+  margin-top: 1.5rem;
+  background: #fff0f5;
+  border: 2px dashed #ff80ab;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #6b2c2c;
+  box-shadow: 0 0 12px rgba(255, 105, 180, 0.3);
+}
+
+.moment-popup button {
+  margin-top: 1rem;
+  background: #ff80ab;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 1rem;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.moment-popup button:hover {
+  background: #ff4b80;
+}
+.gift-box {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  margin: 2rem auto;
+  cursor: pointer;
+  animation: shakeBox 2s infinite;
+  transition: transform 0.3s;
+}
+
+.box-base,
+.box-lid {
+  width: 100%;
+  height: 100%;
+  background: #ff69b4;
+  border-radius: 10px;
+  position: absolute;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.box-lid {
+  top: -20px;
+  background: #ff85c1;
+  z-index: 2;
+  transition: transform 0.5s ease;
+}
+
+.ribbon {
+  position: absolute;
+  top: 0;
+  left: 45%;
+  width: 10%;
+  height: 100%;
+  background: white;
+  z-index: 3;
+  border-radius: 5px;
+}
+
+@keyframes shakeBox {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+}
+
+.gift-surprise {
+  display: none;
+  text-align: center;
+  animation: fadeInUp 1s ease;
+  margin-top: 2rem;
+}
+
+.gift-surprise img {
+  width: 180px;
+  margin-bottom: 1rem;
+}
+
+.gift-surprise p {
+  font-family: "Gloria Hallelujah", cursive;
+  font-size: 1.2rem;
+  color: #cc3366;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.heart-scan-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 2rem auto;
+  background: radial-gradient(circle at center, #ff99c8, #ff5c8a);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255, 92, 138, 0.5);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.heart-shape {
+  position: absolute;
+  font-size: 4rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: white;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.scan-line {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.4);
+  z-index: 2;
+  animation: none;
+}
+
+@keyframes scanDown {
+  from { top: -100%; }
+  to { top: 100%; }
+}
+
+.heart-reveal {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  text-align: center;
+  display: none;
+  z-index: 3;
+}
+
+.heart-content {
+  color: #fff;
+  font-size: 1rem;
+  font-family: "Gloria Hallelujah", cursive;
+  animation: fadeInHeart 1.5s ease forwards;
+  white-space: pre-wrap;
+}
+
+@keyframes fadeInHeart {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sky-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 2rem auto;
+  background: radial-gradient(circle at center, #0d0d1a, #000);
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  cursor: pointer;
+}
+
+#constellationCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sky-container p {
+  text-align: center;
+  font-family: "Gloria Hallelujah", cursive;
+}
 
   </style>
 </head>
@@ -605,14 +839,7 @@
       </div>
     </div>
   </div>
-<!-- 📷 Live Camera Slide -->
-<div class="section">
-  <p style="font-size: 1.5rem;">📷 Click a Live Photo</p>
-  <video id="liveVideo" width="300" height="225" autoplay style="border:2px solid #ff80ab; border-radius:1rem;"></video>
-  <br>
-  <button onclick="capturePhoto()" class="animated-listen" style="margin-top:1rem;">📸 Capture</button>
-  <canvas id="snapshotCanvas" width="300" height="225" style="display:none; margin-top:1rem; border:2px dashed #ff80ab;"></canvas>
-</div>
+
 <!-- 📖 Flipbook Story Slide -->
 <div class="section">
   <p style="font-size: 1.5rem;">📖 Our Little Love Story</p>
@@ -663,6 +890,60 @@
   <p style="font-size: 1.5rem; margin-bottom: 1rem;">🧩 Puzzle Piece Reveal</p>
   <div id="puzzleGrid" class="puzzle-grid"></div>
   <p id="puzzleMessage" class="puzzle-message" style="display:none;">You complete me ❤️</p>
+</div>
+<!-- 🫙 Moments in a Jar Slide -->
+<div class="section">
+  <p style="font-size: 1.5rem;">🫙 Moments in a Jar</p>
+  <div class="jar-container">
+    <img src="https://i.ibb.co/Gkn4hF2/glass-jar.png" class="jar-image" alt="Memory Jar" />
+    <div class="notes-container">
+      <div class="note" onclick="showMoment(0)">💌</div>
+      <div class="note" onclick="showMoment(1)">💬</div>
+      <div class="note" onclick="showMoment(2)">💖</div>
+      <div class="note" onclick="showMoment(3)">💭</div>
+      <div class="note" onclick="showMoment(4)">📝</div>
+    </div>
+  </div>
+  <div id="momentPopup" class="moment-popup">
+    <p id="momentText"></p>
+    <button onclick="closeMoment()">Close</button>
+  </div>
+</div>
+<!-- 🎁 Gift Unboxing Animation -->
+<div class="section">
+  <p style="font-size: 1.5rem;">🎁 Tap to Unbox Your Surprise!</p>
+  <div class="gift-box" onclick="openGift()">
+    <div class="box-lid"></div>
+    <div class="box-base"></div>
+    <div class="ribbon"></div>
+  </div>
+  <div class="gift-surprise" id="giftSurprise">
+    <img src="https://i.ibb.co/0fTwjQX/couple-gift.png" alt="Surprise" />
+    <p>Surprise! You are my most precious gift ever 💝</p>
+  </div>
+</div>
+<!-- ❤️ What's in My Heart Scan -->
+<div class="section">
+  <p style="font-size: 1.5rem;">🫀 What’s in My Heart?</p>
+  <div class="heart-scan-container" onclick="startHeartScan()">
+    <div class="heart-shape">❤️</div>
+    <div class="scan-line" id="scanLine"></div>
+    <div class="heart-reveal" id="heartReveal">
+      <div class="heart-content">
+        maya 💗 maya 💗 maya 💗 maya 💗 maya 💗 maya 💗 maya 💗 maya 💗 maya 💗
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 🌌 Constellation of Us Slide -->
+<div class="section">
+  <p style="font-size: 1.5rem;">🌌 Our Stars Were Meant to Align</p>
+  <div class="sky-container" onclick="drawConstellation()">
+    <canvas id="constellationCanvas" width="300" height="300"></canvas>
+    <p id="constellationMessage" style="display:none; font-size: 1.2rem; margin-top: 1rem; color: #ffccff;">
+      Even the stars know... we were written in the same sky ✨
+    </p>
+  </div>
 </div>
 
     <!-- 💌 Final Slide -->
@@ -788,6 +1069,24 @@ function showSlide(index) {
   });
 }
 
+const memoryMoments = [
+  "The day we first talked — I knew something magical had started. ✨",
+  "That time you laughed so hard, I couldn't stop smiling. 😄",
+  "Cuddles on tough days — you’re my comfort. 🫂",
+  "Every ‘good night’ from you feels like a lullaby. 🌙",
+  "When you looked into my eyes… I saw forever. 👀❤️"
+];
+
+function showMoment(index) {
+  const popup = document.getElementById("momentPopup");
+  const text = document.getElementById("momentText");
+  text.innerText = memoryMoments[index];
+  popup.style.display = "block";
+}
+
+function closeMoment() {
+  document.getElementById("momentPopup").style.display = "none";
+}
 
   function spawnEffect(type, char) {
     const el = document.createElement("div");
@@ -798,6 +1097,28 @@ function showSlide(index) {
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 8000);
   }
+let isGiftOpened = false;
+
+function openGift() {
+  if (isGiftOpened) return;
+  const lid = document.querySelector(".box-lid");
+  const surprise = document.getElementById("giftSurprise");
+  lid.style.transform = "translateY(-120px) rotate(25deg)";
+  document.querySelector(".gift-box").style.animation = "none";
+  surprise.style.display = "block";
+  isGiftOpened = true;
+}
+function startHeartScan() {
+  const scanLine = document.getElementById("scanLine");
+  const reveal = document.getElementById("heartReveal");
+
+  scanLine.style.animation = "scanDown 2s ease-in-out";
+
+  setTimeout(() => {
+    scanLine.style.animation = "none";
+    reveal.style.display = "block";
+  }, 2000);
+}
 
   // Floating visual effects
   setInterval(() => spawnEffect("heart", "💗"), 1200);
@@ -849,18 +1170,7 @@ function showSlide(index) {
   function playBgMusic() {
     if (bgMusic.paused) bgMusic.play();
   }
-// Live Camera Logic
-const video = document.getElementById("liveVideo");
-const canvas = document.getElementById("snapshotCanvas");
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(stream => video.srcObject = stream);
-}
-function capturePhoto() {
-  const ctx = canvas.getContext("2d");
-  canvas.style.display = "block";
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-}
+
 const storyPages = [
   "Once upon a time, two souls collided... 💫",
   "From laughter to tears, they shared everything 🥺",
@@ -911,21 +1221,72 @@ document.addEventListener("DOMContentLoaded", createPuzzleGrid);
 
   // Voice-to-text magic
   function startVoice() {
-    const output = document.getElementById("voiceResult");
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      output.innerText = "Speech not supported on this browser.";
-      return;
-    }
-    const recognition = new SpeechRecognition();
-    recognition.lang = "en-US";
-    recognition.start();
+  const output = document.getElementById("voiceResult");
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    recognition.onresult = function (event) {
-      const text = event.results[0][0].transcript;
-      output.innerText = `You said: "${text}" 💬\nAnd my heart replied: I love you too ❤️`;
-    };
+  if (!SpeechRecognition) {
+    output.innerText = "❌ Voice recognition is not supported on this device/browser.";
+    return;
   }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.start();
+
+  recognition.onresult = function (event) {
+    const text = event.results[0][0].transcript;
+    output.innerText = `You said: "${text}" 💬\nAnd my heart replied: I love you too ❤️`;
+  };
+
+  recognition.onerror = function (event) {
+    output.innerText = "⚠️ Voice recognition failed. Please try again or check mic permissions.";
+  };
+}
+
+function drawConstellation() {
+  const canvas = document.getElementById("constellationCanvas");
+  const ctx = canvas.getContext("2d");
+  const stars = [
+    { x: 40, y: 60 },   // S
+    { x: 60, y: 80 },   // P
+    { x: 80, y: 50 },   // A
+    { x: 100, y: 70 },  // R
+    { x: 120, y: 90 },  // S
+    { x: 140, y: 60 },  // H
+    { x: 160, y: 80 },  // ❤️
+    { x: 180, y: 60 },  // M
+    { x: 200, y: 80 },  // A
+    { x: 220, y: 50 },  // Y
+    { x: 240, y: 70 },  // A
+  ];
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  let i = 0;
+  function animateStars() {
+    if (i < stars.length) {
+      const star = stars[i];
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#fff";
+      ctx.fill();
+      if (i > 0) {
+        ctx.beginPath();
+        ctx.moveTo(stars[i - 1].x, stars[i - 1].y);
+        ctx.lineTo(star.x, star.y);
+        ctx.strokeStyle = "#ff80ab";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+      i++;
+      setTimeout(animateStars, 300);
+    } else {
+      document.getElementById("constellationMessage").style.display = "block";
+    }
+  }
+
+  animateStars();
+}
 
   // Vault memory unlock
   function checkVaultCode() {
