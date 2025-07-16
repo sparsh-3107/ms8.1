@@ -1245,9 +1245,20 @@ document.addEventListener("DOMContentLoaded", createPuzzleGrid);
 function drawConstellation() {
   const canvas = document.getElementById("constellationCanvas");
   const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const stars = [
+  // Set responsive dimensions
+  canvas.width = window.innerWidth * 0.9;
+  canvas.height = window.innerHeight * 0.25;
+
+  const W = canvas.width;
+  const H = canvas.height;
+
+  // Scale factor for X and Y
+  const xScale = W / 600;  // base width 600
+  const yScale = H / 100;  // base height 100
+
+  // Letters: "SPARSH ❤️ MAYA" scaled manually
+  const baseStars = [
     // S
     { x: 30, y: 40 }, { x: 50, y: 30 }, { x: 70, y: 40 }, { x: 60, y: 50 }, { x: 40, y: 60 },
     // P
@@ -1272,6 +1283,12 @@ function drawConstellation() {
     { x: 530, y: 60 }, { x: 540, y: 30 }, { x: 550, y: 60 }, { x: 535, y: 45 }, { x: 545, y: 45 }
   ];
 
+  const stars = baseStars.map(star => ({
+    x: star.x * xScale,
+    y: star.y * yScale
+  }));
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   let i = 0;
 
   function animateStars() {
@@ -1282,7 +1299,7 @@ function drawConstellation() {
       ctx.fillStyle = "#fff";
       ctx.fill();
 
-      // connect previous if not a break
+      // Connect lines if not letter break
       if (
         i > 0 &&
         ![5, 10, 15, 21, 27, 33, 34, 39, 44, 49].includes(i)
@@ -1296,7 +1313,7 @@ function drawConstellation() {
       }
 
       i++;
-      setTimeout(animateStars, 150);
+      setTimeout(animateStars, 120);
     } else {
       document.getElementById("constellationMessage").style.display = "block";
     }
@@ -1304,6 +1321,7 @@ function drawConstellation() {
 
   animateStars();
 }
+
 
   // Vault memory unlock
   function checkVaultCode() {
