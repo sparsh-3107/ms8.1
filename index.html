@@ -1245,34 +1245,31 @@ document.addEventListener("DOMContentLoaded", createPuzzleGrid);
 function drawConstellation() {
   const canvas = document.getElementById("constellationCanvas");
   const ctx = canvas.getContext("2d");
-
-  // Clear previous
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Letter-forming star points (drawn manually to resemble each letter)
   const stars = [
     // S
-    { x: 20, y: 60 }, { x: 30, y: 50 }, { x: 40, y: 60 }, { x: 30, y: 70 }, { x: 20, y: 80 },
+    { x: 30, y: 40 }, { x: 50, y: 30 }, { x: 70, y: 40 }, { x: 60, y: 50 }, { x: 40, y: 60 },
     // P
-    { x: 60, y: 80 }, { x: 60, y: 50 }, { x: 70, y: 50 }, { x: 70, y: 65 }, { x: 60, y: 65 },
+    { x: 100, y: 30 }, { x: 100, y: 60 }, { x: 120, y: 30 }, { x: 120, y: 45 }, { x: 100, y: 45 },
     // A
-    { x: 90, y: 80 }, { x: 95, y: 50 }, { x: 100, y: 80 }, { x: 92.5, y: 65 }, { x: 97.5, y: 65 },
+    { x: 150, y: 60 }, { x: 160, y: 30 }, { x: 170, y: 60 }, { x: 155, y: 45 }, { x: 165, y: 45 },
     // R
-    { x: 115, y: 80 }, { x: 115, y: 50 }, { x: 125, y: 50 }, { x: 125, y: 65 }, { x: 115, y: 65 }, { x: 130, y: 80 },
+    { x: 190, y: 30 }, { x: 190, y: 60 }, { x: 210, y: 30 }, { x: 210, y: 45 }, { x: 190, y: 45 }, { x: 215, y: 60 },
     // S
-    { x: 150, y: 60 }, { x: 160, y: 50 }, { x: 170, y: 60 }, { x: 160, y: 70 }, { x: 150, y: 80 },
+    { x: 240, y: 40 }, { x: 260, y: 30 }, { x: 280, y: 40 }, { x: 270, y: 50 }, { x: 250, y: 60 },
     // H
-    { x: 190, y: 50 }, { x: 190, y: 80 }, { x: 190, y: 65 }, { x: 205, y: 65 }, { x: 205, y: 50 }, { x: 205, y: 80 },
-    // ❤️
-    { x: 230, y: 65 },
+    { x: 300, y: 30 }, { x: 300, y: 60 }, { x: 300, y: 45 }, { x: 320, y: 45 }, { x: 320, y: 30 }, { x: 320, y: 60 },
+    // Heart ❤️
+    { x: 350, y: 45 },
     // M
-    { x: 20, y: 110 }, { x: 20, y: 140 }, { x: 25, y: 120 }, { x: 30, y: 140 }, { x: 30, y: 110 },
+    { x: 390, y: 60 }, { x: 390, y: 30 }, { x: 400, y: 45 }, { x: 410, y: 30 }, { x: 410, y: 60 },
     // A
-    { x: 50, y: 140 }, { x: 55, y: 110 }, { x: 60, y: 140 }, { x: 52.5, y: 125 }, { x: 57.5, y: 125 },
+    { x: 440, y: 60 }, { x: 450, y: 30 }, { x: 460, y: 60 }, { x: 445, y: 45 }, { x: 455, y: 45 },
     // Y
-    { x: 80, y: 110 }, { x: 85, y: 125 }, { x: 90, y: 110 }, { x: 85, y: 125 }, { x: 85, y: 140 },
+    { x: 480, y: 30 }, { x: 490, y: 45 }, { x: 500, y: 30 }, { x: 490, y: 45 }, { x: 490, y: 60 },
     // A
-    { x: 110, y: 140 }, { x: 115, y: 110 }, { x: 120, y: 140 }, { x: 112.5, y: 125 }, { x: 117.5, y: 125 }
+    { x: 530, y: 60 }, { x: 540, y: 30 }, { x: 550, y: 60 }, { x: 535, y: 45 }, { x: 545, y: 45 }
   ];
 
   let i = 0;
@@ -1285,23 +1282,21 @@ function drawConstellation() {
       ctx.fillStyle = "#fff";
       ctx.fill();
 
-      if (i > 0) {
+      // connect previous if not a break
+      if (
+        i > 0 &&
+        ![5, 10, 15, 21, 27, 33, 34, 39, 44, 49].includes(i)
+      ) {
         const prev = stars[i - 1];
-        // Don't connect if it's a heart or letter jump (manually skip some)
-        if (
-          !(i === 5 || i === 10 || i === 15 || i === 21 || i === 27 || i === 33 || i === 39 || i === 46)
-        ) {
-          ctx.beginPath();
-          ctx.moveTo(prev.x, prev.y);
-          ctx.lineTo(star.x, star.y);
-          ctx.strokeStyle = "#ff80ab";
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
+        ctx.beginPath();
+        ctx.moveTo(prev.x, prev.y);
+        ctx.lineTo(star.x, star.y);
+        ctx.strokeStyle = "#ff80ab";
+        ctx.stroke();
       }
 
       i++;
-      setTimeout(animateStars, 200);
+      setTimeout(animateStars, 150);
     } else {
       document.getElementById("constellationMessage").style.display = "block";
     }
@@ -1309,7 +1304,6 @@ function drawConstellation() {
 
   animateStars();
 }
-
 
   // Vault memory unlock
   function checkVaultCode() {
